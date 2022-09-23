@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LogOutRequest {
-    private String userId;
+    private Integer userId;
 }

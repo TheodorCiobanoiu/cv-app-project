@@ -3,21 +3,21 @@ package com.dbproject.cvapp.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Document(collection = "users")
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class MyUser implements UserDetails {
     @Id
-    private String userID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userID;
     private String username;
     private String password;
     private String email;
@@ -27,6 +27,7 @@ public class User implements UserDetails {
     private Boolean accountNonExpired;
     private Boolean accountNonLocked;
     private boolean credentialsNonExpired;
+    @Transient
     private Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
 
     @Override

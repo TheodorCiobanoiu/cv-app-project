@@ -19,7 +19,7 @@ public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     public Optional<RefreshToken> findByToken(String token) {
-        return refreshTokenRepository.findById(token);
+        return refreshTokenRepository.findByToken(token);
     }
 
     public RefreshToken createRefreshToken(String userId) {
@@ -39,7 +39,7 @@ public class RefreshTokenService {
         return token;
     }
 
-    public void deleteByUserId(String userId) {
-        refreshTokenRepository.deleteByUserId(userId);
+    public void deleteByUserId(Integer userId) {
+        refreshTokenRepository.deleteById(userId);
     }
 }

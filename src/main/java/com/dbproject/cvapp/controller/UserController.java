@@ -3,7 +3,7 @@ package com.dbproject.cvapp.controller;
 import com.dbproject.cvapp.exception.JwtException;
 import com.dbproject.cvapp.exception.TokenRefreshException;
 import com.dbproject.cvapp.model.RefreshToken;
-import com.dbproject.cvapp.model.User;
+import com.dbproject.cvapp.model.MyUser;
 import com.dbproject.cvapp.payload.request.AuthenticationRequest;
 import com.dbproject.cvapp.payload.request.LogOutRequest;
 import com.dbproject.cvapp.payload.request.TokenRefreshRequest;
@@ -26,7 +26,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,8 +57,7 @@ public class UserController {
         if (userRepository.findUserByEmail(authenticationRequest.getEmail()) != null)
             return "The user already exists.";
 
-        User user = new User();
-        user.setUserID(UUID.randomUUID().toString());
+        MyUser user = new MyUser();
         user.setEmail(authenticationRequest.getEmail());
         user.setUsername(authenticationRequest.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(authenticationRequest.getPassword()));
@@ -72,16 +70,16 @@ public class UserController {
     }
 
     @GetMapping(value = "/bps/data/user/{JWT}")
-    public User getUserFromJWTPV(@PathVariable String JWT) throws JwtException {
+    public MyUser getUserFromJWTPV(@PathVariable String JWT) throws JwtException {
         return getUserFromJWT(JWT);
     }
 
     @GetMapping(value = "/data/user")
-    public User getUserFromJWTQP(@RequestParam String JWT) throws JwtException {
+    public MyUser getUserFromJWTQP(@RequestParam String JWT) throws JwtException {
         return getUserFromJWT(JWT);
     }
 
-    public User getUserFromJWT(String JWT) throws JwtException {
+    public MyUser getUserFromJWT(String JWT) throws JwtException {
         String email = jwtUtil.extractEmail(JWT);
 
         //noinspection DuplicatedCode

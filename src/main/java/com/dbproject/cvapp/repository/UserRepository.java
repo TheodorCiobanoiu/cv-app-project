@@ -1,12 +1,11 @@
 package com.dbproject.cvapp.repository;
 
-import com.dbproject.cvapp.model.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import com.dbproject.cvapp.model.MyUser;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends MongoRepository<User, String> {
-    User findUserByUsername(String username);
+public interface UserRepository extends JpaRepository<MyUser, Integer> {
+    MyUser findUserByUsername(String username);
 
-    User findUserByEmail(String email);
+    MyUser findUserByEmail(String email);
 
-    User findUserByUserID(String userID);
 }
