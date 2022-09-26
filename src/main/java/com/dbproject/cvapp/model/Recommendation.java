@@ -12,22 +12,11 @@ public class Recommendation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
     private Integer userId;
-
-    @NotNull
     private String candidateFirstName;
-
-    @NotNull
     private String candidateLastName;
-
-    @NotNull
     private String candidateEmail;
-
-    @NotNull
     private String candidatePhoneNumber;
-
-    @NotNull
     private Status progressStatus;
 
     // TODO: Store CV
