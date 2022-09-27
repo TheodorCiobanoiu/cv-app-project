@@ -32,8 +32,11 @@ public class RecommendationService {
     }
 
     // Method to add a new recommendation
-    public void addRecommendation(Recommendation recommendation) {
-        recommendationRepository.save(recommendation);
+    //@theo: Changed method to return Recommendation body for testing purposes
+    //TODO: After testing is done, change service to void
+    //TODO: Maybe check for recommendation body to see if everything is ok
+    public Recommendation addRecommendation(Recommendation recommendation) {
+        return recommendationRepository.save(recommendation);
     }
 
     // Method to get all recommendations

@@ -14,5 +14,6 @@ public class Question {
 
     private QuestionType type;
     private String QuestionBody;
-//    private Answer QuestionAnswer;
+    @OneToOne
+    private Answer QuestionAnswer;
 }

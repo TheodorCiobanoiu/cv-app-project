@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 @Entity
 @Data
@@ -18,7 +19,9 @@ public class Recommendation {
     private String candidateEmail;
     private String candidatePhoneNumber;
     private Status progressStatus;
-
+    //theo: nu sunt sigur daca e corecta legatura asta in db pentru raspunsurile la intrebari
+    @OneToMany
+    private ArrayList<Answer> answers;
     // TODO: Store CV
     // TODO: Answers[]
 }
