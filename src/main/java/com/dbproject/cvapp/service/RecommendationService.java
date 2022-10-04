@@ -48,4 +48,5 @@ public class RecommendationService {
     public List<Recommendation> getRecommendationsById(Integer userId) {
         return recommendationRepository.findAll().stream().filter(x -> Objects.equals(x.getUserId(), userId)).collect(Collectors.toList());
     }
+
 }

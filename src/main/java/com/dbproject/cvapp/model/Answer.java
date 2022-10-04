@@ -14,8 +14,10 @@ public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne
-    private Question question;
+    //TODO: See how to make connection between Question and Answer using only Id
+    //private Integer questionId;
+    //TODO: See how to make connection between Recommendation and Answer using only Id
+    //private Integer recommendationId;
     private String answerBody;
 
 }

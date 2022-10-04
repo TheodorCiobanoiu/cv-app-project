@@ -14,6 +14,8 @@ public class Question {
 
     private QuestionType type;
     private String QuestionBody;
-    @OneToOne
-    private Answer QuestionAnswer;
+    private String possibleAnswer1;
+    private String possibleAnswer2;
+    private String possibleAnswer3;
+    private String possibleAnswer4;
 }

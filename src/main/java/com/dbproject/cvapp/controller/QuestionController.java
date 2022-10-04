@@ -4,10 +4,7 @@ import com.dbproject.cvapp.model.Question;
 import com.dbproject.cvapp.service.QuestionService;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +21,7 @@ public class QuestionController {
 
     // TODO: test this function
     @PostMapping("add")
-    public void createQuestion(@JsonDeserialize Question question) {
+    public void createQuestion(@RequestBody Question question) {
         questionService.createQuestion(question);
     }
 }
