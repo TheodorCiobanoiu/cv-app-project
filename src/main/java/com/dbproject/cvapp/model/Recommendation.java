@@ -22,6 +22,8 @@ public class Recommendation {
     //theo: nu sunt sigur daca e corecta legatura asta in db pentru raspunsurile la intrebari
     //@OneToMany
     //private ArrayList<Answer> answers;
+//    @OneToMany
+//    private ArrayList<Answer> answers;
     // TODO: Store CV
     // TODO: Answers[]
 }

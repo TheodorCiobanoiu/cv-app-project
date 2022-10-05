@@ -18,4 +18,6 @@ public class Question {
     private String possibleAnswer2;
     private String possibleAnswer3;
     private String possibleAnswer4;
+
 }
+

@@ -8,3 +8,7 @@ public enum Status {
     Accepted,       // Accepted after scouting process done
     Rejected        // Rejected after scouting process done
 }
+    In_Progress,    //The recomendation is
+    Accepted,       // Accepted after scouting process done
+    Rejected        // Rejected after scouting process done
+}
