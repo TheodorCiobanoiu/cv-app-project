@@ -23,4 +23,6 @@ public class QuestionService {
     public List<Question> getAllQuestions() {
         return new ArrayList<>(questionRepository.findAll());
     }
+
 }
+

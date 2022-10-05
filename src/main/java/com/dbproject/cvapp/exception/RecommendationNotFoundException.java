@@ -4,4 +4,3 @@ public class RecommendationNotFoundException extends Exception {
     public RecommendationNotFoundException() {
         super("Recommendation not found");
     }
-}
