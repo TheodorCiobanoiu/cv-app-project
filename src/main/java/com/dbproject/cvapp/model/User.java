@@ -19,7 +19,7 @@ public class User {
     private String email;
     private String firstName;
     private String lastname;
-    private boolean enabled;
+    private boolean enabled = true;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(

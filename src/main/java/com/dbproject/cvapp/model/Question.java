@@ -11,7 +11,6 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
     private QuestionType type;
     private String QuestionBody;
     private String possibleAnswer1;

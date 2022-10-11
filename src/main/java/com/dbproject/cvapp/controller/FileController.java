@@ -42,7 +42,7 @@ public class FileController {
 
     }
 
-
+    //If not used in final version, it can be deleted
     @PostMapping("/uploadMultipleFiles")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
