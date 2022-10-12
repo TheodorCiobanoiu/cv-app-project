@@ -19,5 +19,6 @@ public class Answer {
     //TODO: See how to make connection between Recommendation and Answer using only Id
     //private Integer recommendationId;
     private String answerBody;
+    //asda
 
 }
