@@ -3,9 +3,15 @@ package com.dbproject.cvapp.repository;
 import com.dbproject.cvapp.model.MyUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<MyUser, Integer> {
-    MyUser findUserByUsername(String username);
+import java.util.Optional;
 
-    MyUser findUserByEmail(String email);
+public interface UserRepository extends JpaRepository<MyUser, Integer> {
+    Optional<MyUser> findUserByUsername(String username);
+
+    Optional<MyUser> findUserByEmail(String email);
+
+    Boolean existsByUsername(String username);
+
+    Boolean existsByEmail(String email);
 
 }
