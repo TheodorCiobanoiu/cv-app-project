@@ -12,7 +12,6 @@ import com.dbproject.cvapp.repository.UserRepository;
 import com.dbproject.cvapp.security.jwt.JwtUtils;
 import com.dbproject.cvapp.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,23 +27,22 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("api/auth")
 public class UserController {
     private final JwtUtils jwtUtil;
     private final UserRepository userRepository;
     private final AuthenticationManager authenticationManager;
-//    private final UserDetailsServiceImpl userDetailsService;
-//    private final RefreshTokenService refreshTokenService;
 
     private final RolesRepository roleRepository;
-//    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-    private final PasswordEncoder encoder;
+private final PasswordEncoder encoder;
 
     @PostMapping(value = "/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+                new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -60,23 +58,6 @@ public class UserController {
                 userDetails.getEmail(),
                 roles));
     }
-
-//    @PostMapping(value = "/register")
-//    public String registerUser(@RequestBody AuthenticationRequest authenticationRequest) {
-//        if (userRepository.findUserByEmail(authenticationRequest.getEmail()).isPresent())
-//            return "The user already exists.";
-//
-//        MyUser user = new MyUser();
-//        user.setEmail(authenticationRequest.getEmail());
-//        user.setUsername(authenticationRequest.getEmail());
-//        user.setPassword(bCryptPasswordEncoder.encode(authenticationRequest.getPassword()));
-//        user.setEnabled(true);
-//        user.setAccountNonExpired(true);
-//        user.setAccountNonLocked(true);
-//        user.setCredentialsNonExpired(true);
-//        userRepository.save(user);
-//        return "The user was created.";
-//    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
@@ -97,7 +78,7 @@ public class UserController {
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
-        Set<String> strRoles = signUpRequest.getRole();
+        String strRoles = signUpRequest.getRole();
         Set<Roles> roles = new HashSet<>();
 
         if (strRoles == null) {
@@ -105,25 +86,25 @@ public class UserController {
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin" -> {
-                        Roles adminRole = roleRepository.findByName(UserRoles.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                    }
-                    case "hr" -> {
-                        Roles hrRole = roleRepository.findByName(UserRoles.ROLE_HR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(hrRole);
-                    }
-                    default -> {
-                        Roles employeeRole = roleRepository.findByName(UserRoles.ROLE_EMPLOYEE)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(employeeRole);
-                    }
+
+            switch (strRoles) {
+                case "ROLE_ADMIN" -> {
+                    Roles adminRole = roleRepository.findByName(UserRoles.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(adminRole);
                 }
-            });
+                case "ROLE_HR" -> {
+                    Roles hrRole = roleRepository.findByName(UserRoles.ROLE_HR)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(hrRole);
+                }
+                default -> {
+                    Roles employeeRole = roleRepository.findByName(UserRoles.ROLE_EMPLOYEE)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(employeeRole);
+                }
+            }
+
         }
 
         user.setRoles(roles);
@@ -132,48 +113,4 @@ public class UserController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-//    @GetMapping(value = "/bps/data/user/{JWT}")
-//    public MyUser getUserFromJWTPV(@PathVariable String JWT) throws JwtException {
-//        return getUserFromJWT(JWT);
-//    }
-//
-//    @GetMapping(value = "/data/user")
-//    public MyUser getUserFromJWTQP(@RequestParam String JWT) throws JwtException {
-//        return getUserFromJWT(JWT);
-//    }
-//
-//    public MyUser getUserFromJWT(String JWT) throws JwtException {
-//        String email = jwtUtil.extractEmail(JWT);
-//
-//        //noinspection DuplicatedCode
-//        if (email != null) {
-//            UserDetails userDetails = this.userDetailsService.loadUserByEmail(email);
-//            if (jwtUtil.validateToken(JWT, userDetails)) {
-//                return userRepository.findUserByEmail(email)
-//                        .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
-//            }
-//        }
-//        return null;
-//    }
-
-//    @PostMapping("/refresh-token")
-//    public ResponseEntity<?> refreshToken(@RequestBody TokenRefreshRequest request) {
-//        String requestRefreshToken = request.getRefreshToken();
-//
-//        return refreshTokenService.findByToken(requestRefreshToken)
-//                .map(refreshTokenService::verifyExpiration)
-//                .map(RefreshToken::getUserId)
-//                .map(user -> {
-//                    String token = jwtUtil.generateToken(userDetailsService.loadUserByUsername(user));
-//                    return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
-//                })
-//                .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
-//                        "Refresh token is not in database!"));
-//    }
-
-//    @PostMapping("/logout")
-//    public ResponseEntity<?> logoutUser(@Valid @RequestBody LogOutRequest logOutRequest) {
-//        refreshTokenService.deleteByUserId(logOutRequest.getUserId());
-//        return ResponseEntity.ok(new MessageResponse("Log out successful!"));
-//    }
 }

@@ -5,6 +5,7 @@ import com.dbproject.cvapp.model.Recommendation;
 import com.dbproject.cvapp.model.Status;
 import com.dbproject.cvapp.service.RecommendationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("recommendation")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class RecommendationController {
     private final RecommendationService recommendationService;
 
+    @PreAuthorize("hasRole('HR')")
     @GetMapping("all")
     public List<Recommendation> getAllRecommendations() {
         return recommendationService.getAllRecommendations();

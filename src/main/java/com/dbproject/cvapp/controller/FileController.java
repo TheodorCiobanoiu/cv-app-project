@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("file")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class FileController {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class);

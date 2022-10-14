@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("question")
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class QuestionController {
     private final QuestionService questionService;
 
