@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("mail")
 public class MailController {
@@ -76,11 +77,9 @@ public class MailController {
 
 
     @PostMapping("/sendMail")
-    public String createMail(@RequestBody MailObject mailObject) {
-        emailService.sendSimpleMessage(mailObject.getTo(),
+    public String createMail(@Valid @RequestBody MailObject mailObject) {
+        return emailService.sendSimpleMessage(mailObject.getTo(),
                 mailObject.getSubject(), mailObject.getText());
-
-        return "emails";
     }
 
     @RequestMapping(value = "/sendTemplate", method = RequestMethod.POST)
