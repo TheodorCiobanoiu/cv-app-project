@@ -1,6 +1,7 @@
 package com.dbproject.cvapp.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,26 +16,28 @@ import java.util.Objects;
 
 @Service("EmailService")
 public class EmailServiceImpl implements EmailService {
-    private static final String NOREPLY_ADDRESS = "cvtemplateapp@gmail.com";
+//    private static final String NOREPLY_ADDRESS = "cvtemplateapp@gmail.com";
 
-    @Autowired
-    private JavaMailSender emailSender;
+    @Value("${spring.mail.username}") private String sender;
+    @Autowired private JavaMailSender emailSender;
 
     private SimpleMailMessage template;
 
     @Override
-    public void sendSimpleMessage(String to, String subject, String text) {
+    public String sendSimpleMessage(String to, String subject, String text) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(NOREPLY_ADDRESS);
+            message.setFrom(sender);
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text);
 
             emailSender.send(message);
+            return "Mail Sent Successfully";
         } catch (MailException exception) {
             exception.printStackTrace();
         }
+        return "Mail NOT Sent";
     }
 
     @Override
@@ -55,7 +58,7 @@ public class EmailServiceImpl implements EmailService {
             // pass 'true' to the constructor to create a multipart message
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-            helper.setFrom(NOREPLY_ADDRESS);
+            helper.setFrom(sender);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(text);
