@@ -3,14 +3,9 @@ package com.dbproject.cvapp.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,13 +32,7 @@ public class MyUser {
     private Boolean accountNonExpired;
     private Boolean accountNonLocked;
     private boolean credentialsNonExpired;
-//    @Transient
-//    private Collection<? extends GrantedAuthority> authorities = new ArrayList<>();
-//
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return authorities;
-//    }
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -56,19 +45,4 @@ public class MyUser {
         this.password = password;
     }
 
-//    public boolean isAccountNonExpired() {
-//        return accountNonExpired;
-//    }
-//
-//    public boolean isAccountNonLocked() {
-//        return accountNonLocked;
-//    }
-//
-//    public boolean isCredentialsNonExpired() {
-//        return credentialsNonExpired;
-//    }
-//
-//    public boolean isEnabled() {
-//        return enabled;
-//    }
 }

@@ -1,6 +1,7 @@
 package com.dbproject.cvapp.controller;
 
 import com.dbproject.cvapp.exception.RecommendationNotFoundException;
+import com.dbproject.cvapp.model.Answer;
 import com.dbproject.cvapp.model.Recommendation;
 import com.dbproject.cvapp.model.Status;
 import com.dbproject.cvapp.service.RecommendationService;
@@ -17,7 +18,7 @@ import java.util.List;
 public class RecommendationController {
     private final RecommendationService recommendationService;
 
-    @PreAuthorize("hasRole('HR')")
+    @PreAuthorize("hasRole('HR') or hasRole('ADMIN')")
     @GetMapping("all")
     public List<Recommendation> getAllRecommendations() {
         return recommendationService.getAllRecommendations();
@@ -32,6 +33,7 @@ public class RecommendationController {
     public Recommendation addRecommendation(@RequestBody Recommendation recommendation){
         System.out.println("Added new recommendation: " + recommendation);
         return recommendationService.addRecommendation(recommendation);
+
     }
     @PostMapping("changeStatus/{id}/{status}")
     public void changeRecommendationStatus(@PathVariable Status status, @PathVariable Integer id)

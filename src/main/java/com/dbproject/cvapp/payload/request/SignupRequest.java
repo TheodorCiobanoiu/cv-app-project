@@ -2,12 +2,16 @@ package com.dbproject.cvapp.payload.request;
 
 import lombok.Data;
 
-import java.util.Set;
-
 import javax.validation.constraints.*;
 
 @Data
 public class SignupRequest {
+    @NotBlank
+    @Size(max = 120)
+    private String firstName;
+    @NotBlank
+    @Size(max = 120)
+    private String lastName;
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;
