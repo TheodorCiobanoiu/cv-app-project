@@ -11,8 +11,12 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
     private QuestionType type;
     private String QuestionBody;
-//    private Answer QuestionAnswer;
+    private String possibleAnswer1;
+    private String possibleAnswer2;
+    private String possibleAnswer3;
+    private String possibleAnswer4;
+
 }
+

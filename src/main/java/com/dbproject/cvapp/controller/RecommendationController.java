@@ -25,9 +25,11 @@ public class RecommendationController {
         return recommendationService.getRecommendationsById(id);
     }
 
-    // TODO: ADD RECOMMENDATION
-    // @Vulpe: Nu mai stiu daca stia sa extraga springul singur un obiect
-
+    @PostMapping("add")
+    public Recommendation addRecommendation(@RequestBody Recommendation recommendation){
+        System.out.println("Added new recommendation: " + recommendation);
+        return recommendationService.addRecommendation(recommendation);
+    }
     @PostMapping("changeStatus/{id}/{status}")
     public void changeRecommendationStatus(@PathVariable Status status, @PathVariable Integer id)
             throws RecommendationNotFoundException {
