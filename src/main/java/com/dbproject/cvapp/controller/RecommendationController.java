@@ -30,7 +30,7 @@ public class RecommendationController {
     }
 
     @PostMapping("add")
-    public Recommendation addRecommendation(@RequestBody Recommendation recommendation){
+    public Recommendation addRecommendation(@RequestBody Recommendation recommendation) {
         System.out.println("Added new recommendation: " + recommendation);
         return recommendationService.addRecommendation(recommendation);
 

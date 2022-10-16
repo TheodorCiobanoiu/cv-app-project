@@ -20,7 +20,7 @@ public class Recommendation {
     private String candidatePhoneNumber;
     private Status progressStatus;
     //theo: nu sunt sigur daca e corecta legatura asta in db pentru raspunsurile la intrebari
-    @OneToMany
+    @OneToMany(mappedBy = "recommendation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers;
     // TODO: Store CV
     // TODO: Answers[]

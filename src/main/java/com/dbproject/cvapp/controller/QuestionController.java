@@ -20,7 +20,6 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
-    // TODO: test this function
     @PostMapping("add")
     public void createQuestion(@RequestBody Question question) {
         questionService.createQuestion(question);
