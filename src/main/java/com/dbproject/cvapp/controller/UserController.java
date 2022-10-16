@@ -13,6 +13,7 @@ import com.dbproject.cvapp.security.jwt.JwtUtils;
 import com.dbproject.cvapp.service.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -58,7 +59,7 @@ private final PasswordEncoder encoder;
                 roles));
 
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
