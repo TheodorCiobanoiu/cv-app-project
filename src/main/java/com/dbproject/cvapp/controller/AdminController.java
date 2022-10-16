@@ -20,16 +20,16 @@ public class AdminController {
 
     private final MyUserService myUserService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("all-users")
     public List<MyUser> getAllUsers() {
         return myUserService.getAllUsers();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @DeleteMapping("delete-user/{userId}/{requesterId}")
-    public String deleteUserById(@PathVariable Integer userId, @PathVariable Integer requesterId) throws NoUserException, NoAuthorizationException, AdminDeleteException {
-        return myUserService.deleteUserById(userId, requesterId);
+    @DeleteMapping("delete-user/{username}/{requesterId}")
+    public String deleteUserById(@PathVariable String username, @PathVariable Integer requesterId) throws NoUserException, NoAuthorizationException, AdminDeleteException {
+        return myUserService.deleteUserByUsername(username, requesterId);
     }
 
     @PreAuthorize("hasRole('ADMIN')")

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +22,12 @@ public class MyUserService {
         return userRepository.findAll();
     }
 
-    public String deleteUserById(Integer id, Integer requesterId) throws NoUserException, AdminDeleteException, NoAuthorizationException {
-        Optional<MyUser> optionalUser = userRepository.findById(id);
+    public String deleteUserByUsername(String username, Integer requesterId) throws NoUserException, AdminDeleteException, NoAuthorizationException {
+        Optional<MyUser> optionalUser = userRepository.findUserByUsername(username);
         Optional<MyUser> optionalUserPotentialAdmin = userRepository.findById(requesterId);
 
         if(optionalUser.isEmpty() || optionalUserPotentialAdmin.isEmpty())
-            throw new NoUserException(id);
+            throw new NoUserException(username);
 
         List<Roles> potentialAdminUserRoles = optionalUserPotentialAdmin.get().getRoles().stream().toList();
         Roles roleAdminPotential = new Roles();
@@ -49,7 +48,7 @@ public class MyUserService {
             throw new AdminDeleteException();
 
 
-        userRepository.deleteById(id);
+        userRepository.deleteByUsername(username);
         return "The user with username: " + optionalUser.get().getUsername() + "has been deleted";
 
     }
