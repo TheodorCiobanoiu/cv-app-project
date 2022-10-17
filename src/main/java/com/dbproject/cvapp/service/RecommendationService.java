@@ -13,7 +13,6 @@ import com.dbproject.cvapp.repository.RecommendationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,7 +23,6 @@ import java.util.stream.Collectors;
 public class RecommendationService {
     private final RecommendationRepository recommendationRepository;
     private final AnswerRepository answerRepository;
-    private final AnswerMapper answerMapper;
     private final RecommendationMapper recommendationMapper;
     private final QuestionRepository questionRepository;
 
@@ -58,16 +56,9 @@ public class RecommendationService {
 
     // Method to get all recommendations
     public List<RecommendationDTO> getAllRecommendations() {
-//        return new ArrayList<>(recommendationRepository.findAll());
         return recommendationRepository.findAll().stream().map(recommendationMapper::toRecommendationDTO)
-//                .map(recommendation -> {
-//            recommendation.setAnswerDTOS(recommendation.getAnswerDTOS().stream().map(answerMapper::toAnswerDTO).collect(Collectors.toList()));
-//            recommendation.getAnswers().stream().map(answerMapper::toAnswerDTO);
-//        })
             .collect(Collectors.toList());
     }
-
-//    recommendation.getAnswers().stream().map(answerMapper::toAnswerDTO);
 
     // Method to get all recommendations of a given user
     public List<Recommendation> getRecommendationsById(Integer userId) {
