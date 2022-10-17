@@ -11,6 +11,7 @@ import com.dbproject.cvapp.repository.AnswerRepository;
 import com.dbproject.cvapp.repository.QuestionRepository;
 import com.dbproject.cvapp.repository.RecommendationRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public class RecommendationService {
     //@theo: Changed method to return Recommendation body for testing purposes
     //TODO: After testing is done, change service to void
     //TODO: Maybe check for recommendation body to see if everything is ok
-    public Recommendation addRecommendation(Recommendation recommendation) {
+    public RecommendationDTO addRecommendation(Recommendation recommendation) {
         // TODO: CHANGE WITH DTO
         recommendationRepository.save(recommendation);
         for (Answer answer: recommendation.getAnswers()) {
@@ -51,7 +52,7 @@ public class RecommendationService {
             answer.setRecommendation(recommendation);
             answerRepository.save(answer);
         }
-        return recommendation;
+        return recommendationMapper.toRecommendationDTO(recommendation);
     }
 
     // Method to get all recommendations
