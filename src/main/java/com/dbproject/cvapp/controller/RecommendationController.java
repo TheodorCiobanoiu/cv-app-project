@@ -1,5 +1,6 @@
 package com.dbproject.cvapp.controller;
 
+import com.dbproject.cvapp.dto.RecommendationDTO;
 import com.dbproject.cvapp.exception.RecommendationNotFoundException;
 import com.dbproject.cvapp.model.Answer;
 import com.dbproject.cvapp.model.Recommendation;
@@ -20,7 +21,7 @@ public class RecommendationController {
 
     @PreAuthorize("hasRole('HR') or hasRole('ADMIN')")
     @GetMapping("all")
-    public List<Recommendation> getAllRecommendations() {
+    public List<RecommendationDTO> getAllRecommendations() {
         return recommendationService.getAllRecommendations();
     }
 
@@ -30,7 +31,7 @@ public class RecommendationController {
     }
 
     @PostMapping("add")
-    public Recommendation addRecommendation(@RequestBody Recommendation recommendation){
+    public Recommendation addRecommendation(@RequestBody Recommendation recommendation) {
         System.out.println("Added new recommendation: " + recommendation);
         return recommendationService.addRecommendation(recommendation);
 

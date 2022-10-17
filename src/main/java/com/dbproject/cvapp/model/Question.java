@@ -13,7 +13,7 @@ public class Question {
     private Integer id;
 
     private QuestionType type;
-    private String QuestionBody;
+    private String questionBody;
     private String possibleAnswer1;
     private String possibleAnswer2;
     private String possibleAnswer3;
