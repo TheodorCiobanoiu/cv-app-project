@@ -28,6 +28,7 @@ public class MyUser {
     private String email;
     private String firstName;
     private String lastName;
+    private String phone;
     private Boolean enabled;
     private Boolean accountNonExpired;
     private Boolean accountNonLocked;
@@ -39,8 +40,11 @@ public class MyUser {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Roles> roles = new HashSet<>();
 
-    public MyUser(String username, String email, String password) {
+    public MyUser(String username,String firstName, String lastName, String phone, String email, String password) {
         this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phone = phone;
         this.email = email;
         this.password = password;
     }

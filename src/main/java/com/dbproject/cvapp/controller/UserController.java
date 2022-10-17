@@ -59,7 +59,7 @@ private final PasswordEncoder encoder;
                 roles));
 
     }
-    @PreAuthorize("hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
@@ -75,7 +75,11 @@ private final PasswordEncoder encoder;
         }
 
         // Create new user's account
-        MyUser user = new MyUser(signUpRequest.getUsername(),
+        MyUser user = new MyUser(
+                signUpRequest.getUsername(),
+                signUpRequest.getFirstName(),
+                signUpRequest.getLastName(),
+                signUpRequest.getPhone(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));
 
