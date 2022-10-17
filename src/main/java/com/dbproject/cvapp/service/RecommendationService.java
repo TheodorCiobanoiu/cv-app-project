@@ -2,7 +2,6 @@ package com.dbproject.cvapp.service;
 
 import com.dbproject.cvapp.dto.RecommendationDTO;
 import com.dbproject.cvapp.exception.RecommendationNotFoundException;
-import com.dbproject.cvapp.mapper.AnswerMapper;
 import com.dbproject.cvapp.mapper.RecommendationMapper;
 import com.dbproject.cvapp.model.Answer;
 import com.dbproject.cvapp.model.Recommendation;
@@ -11,7 +10,6 @@ import com.dbproject.cvapp.repository.AnswerRepository;
 import com.dbproject.cvapp.repository.QuestionRepository;
 import com.dbproject.cvapp.repository.RecommendationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,7 +23,6 @@ public class RecommendationService {
     private final RecommendationRepository recommendationRepository;
     private final AnswerRepository answerRepository;
     private final RecommendationMapper recommendationMapper;
-    private final QuestionRepository questionRepository;
 
     // Method to change the status of a recommendation
     public void changeRecommendationStatus(Status progressStatus, Integer recommendationId)
@@ -48,7 +45,6 @@ public class RecommendationService {
         // TODO: CHANGE WITH DTO
         recommendationRepository.save(recommendation);
         for (Answer answer: recommendation.getAnswers()) {
-            answer.setQuestion(questionRepository.findById(1).get());
             answer.setRecommendation(recommendation);
             answerRepository.save(answer);
         }
