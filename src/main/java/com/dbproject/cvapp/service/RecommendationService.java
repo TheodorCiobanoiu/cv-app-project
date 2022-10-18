@@ -58,8 +58,11 @@ public class RecommendationService {
     }
 
     // Method to get all recommendations of a given user
-    public List<Recommendation> getRecommendationsById(Integer userId) {
-        return recommendationRepository.findAll().stream().filter(x -> Objects.equals(x.getUserId(), userId)).collect(Collectors.toList());
+    public List<RecommendationDTO> getRecommendationsById(Integer userId) {
+        return recommendationRepository.findAll().stream()
+                .filter(x -> Objects.equals(x.getUserId(), userId))
+                .map(recommendationMapper::toRecommendationDTO)
+                .collect(Collectors.toList());
     }
 
 }

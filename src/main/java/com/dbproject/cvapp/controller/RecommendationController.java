@@ -26,7 +26,7 @@ public class RecommendationController {
     }
 
     @GetMapping("all/{id}")
-    public List<Recommendation> getRecommendationsById(@PathVariable Integer id) {
+    public List<RecommendationDTO> getRecommendationsById(@PathVariable Integer id) {
         return recommendationService.getRecommendationsById(id);
     }
 
