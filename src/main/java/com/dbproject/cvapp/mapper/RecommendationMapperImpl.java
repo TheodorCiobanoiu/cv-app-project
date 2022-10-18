@@ -17,7 +17,8 @@ public class RecommendationMapperImpl implements RecommendationMapper{
         if (recommendation == null) {
             return null;
         }
-        return new RecommendationDTO(recommendation.getUserId(),
+        return new RecommendationDTO(recommendation.getId(),
+                recommendation.getUserId(),
                 recommendation.getCandidateFirstName(),
                 recommendation.getCandidateLastName(),
                 recommendation.getCandidateEmail(),

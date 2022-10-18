@@ -11,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecommendationDTO {
+    private Integer id;
     private Integer userId;
     private String candidateFirstName;
     private String candidateLastName;
