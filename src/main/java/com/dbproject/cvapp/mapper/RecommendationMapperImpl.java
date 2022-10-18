@@ -21,7 +21,7 @@ public class RecommendationMapperImpl implements RecommendationMapper{
         }
         return new RecommendationDTO(recommendation.getId(),
                 userRepository.findById(recommendation.getId()).get().getFirstName() + " " +
-                        userRepository.findById(recommendation.getId()).get().getFirstName(),
+                        userRepository.findById(recommendation.getId()).get().getLastName(),
                 recommendation.getCandidateFirstName(),
                 recommendation.getCandidateLastName(),
                 recommendation.getCandidateEmail(),
