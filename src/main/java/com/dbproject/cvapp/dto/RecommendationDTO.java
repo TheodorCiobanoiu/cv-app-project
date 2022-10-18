@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class RecommendationDTO {
     private Integer id;
-    private Integer userId;
+    private String useFullName;
     private String candidateFirstName;
     private String candidateLastName;
     private String candidateEmail;

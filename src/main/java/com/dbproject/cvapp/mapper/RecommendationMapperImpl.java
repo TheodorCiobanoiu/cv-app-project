@@ -2,6 +2,7 @@ package com.dbproject.cvapp.mapper;
 
 import com.dbproject.cvapp.dto.RecommendationDTO;
 import com.dbproject.cvapp.model.Recommendation;
+import com.dbproject.cvapp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RecommendationMapperImpl implements RecommendationMapper{
     private final AnswerMapper answerMapper;
+    private final UserRepository userRepository;
 
     @Override
     public RecommendationDTO toRecommendationDTO(Recommendation recommendation) {
@@ -18,7 +20,8 @@ public class RecommendationMapperImpl implements RecommendationMapper{
             return null;
         }
         return new RecommendationDTO(recommendation.getId(),
-                recommendation.getUserId(),
+                userRepository.findById(recommendation.getId()).get().getFirstName() + " " +
+                        userRepository.findById(recommendation.getId()).get().getFirstName(),
                 recommendation.getCandidateFirstName(),
                 recommendation.getCandidateLastName(),
                 recommendation.getCandidateEmail(),
