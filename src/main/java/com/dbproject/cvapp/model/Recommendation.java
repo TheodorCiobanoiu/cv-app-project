@@ -19,6 +19,7 @@ public class Recommendation {
     private String candidateEmail;
     private String candidatePhoneNumber;
     private Status progressStatus;
+    private Integer cvFileId;
     //theo: nu sunt sigur daca e corecta legatura asta in db pentru raspunsurile la intrebari
     @OneToMany(mappedBy = "recommendation", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers;

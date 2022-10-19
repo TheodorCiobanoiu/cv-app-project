@@ -11,6 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,6 +32,7 @@ public class FileController {
     private final DBFileStorageService dbFileStorageService;
 
     @PostMapping("uploadFile")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('HR') or hasRole('EMPLOYEE')")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) throws FileStorageException {
         DBFile dbFile = dbFileStorageService.storeFile(file);
 

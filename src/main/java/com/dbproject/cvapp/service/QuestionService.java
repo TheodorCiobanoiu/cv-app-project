@@ -23,4 +23,8 @@ public class QuestionService {
     public List<Question> getAllQuestions() {
         return new ArrayList<>(questionRepository.findAll());
     }
+
+    public void deleteQuestion(Integer id){
+        questionRepository.deleteById(id);
+    }
 }

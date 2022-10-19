@@ -65,4 +65,12 @@ public class RecommendationService {
                 .collect(Collectors.toList());
     }
 
+    public void deleteRecommendation(Integer id){
+        recommendationRepository.deleteById(id);
+    }
+
+    public Recommendation getRecommendationById(Integer id){
+        return recommendationRepository.findById(id).get();
+    }
+
 }

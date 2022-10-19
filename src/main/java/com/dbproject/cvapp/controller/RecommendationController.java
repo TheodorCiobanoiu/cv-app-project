@@ -41,4 +41,17 @@ public class RecommendationController {
             throws RecommendationNotFoundException {
         recommendationService.changeRecommendationStatus(status, id);
     }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("delete/{id}")
+    public void deleteRecommendation(@PathVariable Integer id){
+        recommendationService.deleteRecommendation(id);
+    }
+
+    @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE') or hasRole('HR')")
+    @GetMapping("answers/{id}")
+    public List<Answer> getAnswersFromRecommendation(@PathVariable Integer id){
+        Recommendation recommendation = recommendationService.getRecommendationById(id);
+        return recommendation.getAnswers();
+    }
 }
