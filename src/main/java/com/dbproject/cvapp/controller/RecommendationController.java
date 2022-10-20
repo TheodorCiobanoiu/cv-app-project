@@ -50,7 +50,7 @@ public class RecommendationController {
 
     @PreAuthorize("hasRole('ADMIN') or hasRole('EMPLOYEE') or hasRole('HR')")
     @GetMapping("answers/{id}")
-    public List<Answer> getAnswersFromRecommendation(@PathVariable Integer id){
+    public List<Answer> getAnswersFromRecommendation(@PathVariable Integer id) throws RecommendationNotFoundException {
         Recommendation recommendation = recommendationService.getRecommendationById(id);
         return recommendation.getAnswers();
     }

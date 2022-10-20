@@ -67,8 +67,12 @@ public class RecommendationService {
         recommendationRepository.deleteById(id);
     }
 
-    public Recommendation getRecommendationById(Integer id){
-        return recommendationRepository.findById(id).get();
+    public Recommendation getRecommendationById(Integer id) throws RecommendationNotFoundException {
+        Optional<Recommendation> recommendationTmp = recommendationRepository.findById(id);
+        if (recommendationTmp.isEmpty()) {
+            throw new RecommendationNotFoundException();
+        }
+        return recommendationTmp.get();
     }
 
 }
