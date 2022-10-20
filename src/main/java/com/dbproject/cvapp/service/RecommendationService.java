@@ -7,7 +7,6 @@ import com.dbproject.cvapp.model.Answer;
 import com.dbproject.cvapp.model.Recommendation;
 import com.dbproject.cvapp.model.Status;
 import com.dbproject.cvapp.repository.AnswerRepository;
-import com.dbproject.cvapp.repository.QuestionRepository;
 import com.dbproject.cvapp.repository.RecommendationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,7 +41,6 @@ public class RecommendationService {
     //TODO: After testing is done, change service to void
     //TODO: Maybe check for recommendation body to see if everything is ok
     public RecommendationDTO addRecommendation(Recommendation recommendation) {
-        // TODO: CHANGE WITH DTO
         recommendationRepository.save(recommendation);
         for (Answer answer: recommendation.getAnswers()) {
             answer.setRecommendation(recommendation);

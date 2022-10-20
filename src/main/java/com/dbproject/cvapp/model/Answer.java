@@ -22,6 +22,7 @@ public class Answer {
     @ManyToOne(fetch = FetchType.LAZY)
     private Recommendation recommendation;
     @ManyToOne
-    private Question question;
+    private Question question; // question Id maybe
+//    private Integer questionId;
 
 }
