@@ -18,5 +18,6 @@ public class RecommendationDTO {
     private String candidateEmail;
     private String candidatePhoneNumber;
     private Status progressStatus;
+    private Integer cvFileId;
     private List<AnswerDTO> answerDTOS;
 }

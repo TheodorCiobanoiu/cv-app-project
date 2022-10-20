@@ -27,6 +27,7 @@ public class RecommendationMapperImpl implements RecommendationMapper{
                 recommendation.getCandidateEmail(),
                 recommendation.getCandidatePhoneNumber(),
                 recommendation.getProgressStatus(),
+                recommendation.getCvFileId(),
                 recommendation.getAnswers().stream().map(answerMapper::toAnswerDTO).collect(Collectors.toList()));
     }
 }
